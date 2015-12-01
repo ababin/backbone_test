@@ -4,8 +4,10 @@ $(function(){
 	var Task = Backbone.Model.extend({
 		
 		defaults:{
-			title: 'My task',
-			description : 'Task description'
+			title: 'Some task',
+			description : 'Task description',
+			timeBegin: 11223344,
+			timeEnd: 223344
 		}
 		
 	});
@@ -14,7 +16,7 @@ $(function(){
 	// TASKLIST collection
 	var TaskList = Backbone.Collection.extend({
 		// Will hold objects of the Task model
-		model: Task
+		//model: Task
 	
 	});
 	
@@ -78,7 +80,7 @@ $(function(){
 	var AppTask = Backbone.View.extend({
 
 		// Base the view on an existing element
-		el: $('#div_1'),
+		el: $('#tasks'),
 
 		initialize: function(){
 			

@@ -1,48 +1,73 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Your first Backbone.js App | Tutorialzine </title>
-        
-		<link href="css/style.css" rel="stylesheet" />
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>backbone test application</title>
 
-		<script src="lib/jquery-1.9.1.min.js" ></script>
-		<script src="lib/underscore-1.4.4.min.js"></script>
-		<script src="lib/backbone-1.0.0.min.js"></script>
-		
-		    
-		<script src="js/main_div_1.js"></script>
-		
-		<script src="js/main.js"></script>
-		
-		
-		
-    </head>
-    
-    <body>
-  
-		<div id="div_1">
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet" />
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+<script src="js/bootstrap.min.js"></script>
+
+<script src="lib/jquery-1.9.1.min.js"></script>
+<script src="lib/underscore-1.4.4.min.js"></script>
+<script src="lib/backbone-1.0.0.min.js"></script>
+
+
+<script src="js/task.js"></script>
+<script src="js/menu.js"></script>
+
+<script src="js/main.js"></script>
+
+
+</head>
+<body>
+	<div class="container-fluid">
+
+		<h1>Hello, world!</h1>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<div id="menu"></div>
+				<div id="menu_selected"></div>
+			</div>
+
+			<div class="col-sm-9">
+				<div id="tasks"></div>
+
+				<div id="div_current"></div>
+
+
+				<form id="main" method="post" action="submit.php">
+					<h1>My Services</h1>
+
+					<ul id="services">
+						<!-- The services will be inserted here -->
+					</ul>
+
+					<p id="total">
+						total: <span>$0</span>
+					</p>
+
+				</form>
+			</div>
 		</div>
-		
-		<div id="div_current">
-		</div>
-		
-		
-		<form id="main" method="post" action="submit.php">
-			<h1>My Services</h1>
 
-			<ul id="services">
-				<!-- The services will be inserted here -->
-			</ul>
 
-			<p id="total">total: <span>$0</span></p>
+	</div>
 
-			<input type="submit" id="order" value="Order" />
-
-		</form>
-		
-		
-		
-    </body>
+</body>
 </html>
 
