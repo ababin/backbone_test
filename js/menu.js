@@ -2,107 +2,115 @@ $(function(){
 
 	// MENUITEM model
 	var MenuItem = Backbone.Model.extend({
-		
+								
 		defaults:{
 			title: 'menu item',
-			link : '/href/..'
+			link : 'href/..',
+			selected: false
 		}
 		
 	});
 
 	// MENU collection
-	var Menu = Backbone.Collection.extend({
-		// Will hold objects of the Task model
-		//model: Task
-	
+	var FullMenu = Backbone.Collection.extend({
+		model: MenuItem
 	});
 	
 	// Prefill the collection with a number of services.
-	var menu = new Menu([
-		new MenuItem({ title: 'menu item 1', link: '/href/1'}),
-		new MenuItem({ title: 'menu item 2', link: '/href/2'}),
-		new MenuItem({ title: 'menu item 3', link: '/href/3'}),
-		new MenuItem({ title: 'menu item 4', link: '/href/4'}),
-		new MenuItem({ title: 'menu item 5', link: '/href/5'})
+	var fullMenu = new FullMenu([
+		new MenuItem({ linkTitle: 'Menu item 1', link: 'm1' , title: 'menu item 1111111'}),
+		new MenuItem({ linkTitle: 'Menu item 2', link: 'm2' , title: 'menu item 2222222'}),
+		new MenuItem({ linkTitle: 'Menu item 3', link: 'm3' , title: 'menu item 3333333333'}),
+		new MenuItem({ linkTitle: 'Menu item 4', link: 'm4' , title: 'menu item 4444444444'}),
+		new MenuItem({ linkTitle: 'Menu item 5', link: 'm5' , title: 'menu item 5555555555'}),
+		new MenuItem({ linkTitle: 'Menu item 6', link: 'm6' , title: 'menu item 6666666666'}),
+		new MenuItem({ linkTitle: 'Menu item 7', link: 'm7' , title: 'menu item 7777777777'})
 	]);
 
 	
 	// This view turns a Service model into HTML
 	var MenuItemView = Backbone.View.extend({
-						
-		menuSelected: $('#menu_selected'),
+		
+		model: MenuItem,
 		
 		tagName: 'a',
 						
-		events:{
-			'click': 'clickMenuItem',
-			'mouseover': 'mouseOverMenuItem',
-			'mouseout': 'mouseOutMenuItem'
-				
-		},
-
 		initialize: function(){
+			this.model.bind('change', this.render, this);
 		},
-
+		
 		render: function(){
-			this.$el.html(this.model.get('title') + " --> " + this.model.get('link'));
+			this.$el.html(this.model.get('linkTitle'));
 			this.$el.attr('href','#'+this.model.get('link'));
+			if(this.model.get('selected')){
+				this.$el.attr('class','selected');
+			}else{
+				this.$el.attr('class','');
+			}
 			return this;
 		},
-
-		clickMenuItem: function(){
-		},
-		
-		mouseOverMenuItem: function(){
-			this.$el.css('background-color', 'gray');
-			//this.menuSelected.html(this.model.get('link'));
-		},
-		mouseOutMenuItem: function(){
-			this.$el.css('background-color', 'white');
-			//this.menuSelected.html('');
-		}
-				
-		
+										
 	});
 	
 
 	// The main view of the application
-	var MenuView = Backbone.View.extend({
+	var FullMenuView = Backbone.View.extend({
 
 		// Base the view on an existing element
 		el: $('#menu'),
-
+		
 		initialize: function(){
-			
-			
-			//this.list = $('#div_1');
-			
-			// Listen for the change event on the collection.
-			// This is equivalent to listening on every one of the 
-			// service objects in the collection.
-			this.listenTo(menu, 'change', this.render);
-
-			
-			// Create views for every one of the services in the
-			// collection and add them to the page
-
-			menu.each(function(menuItem){
-
+						
+			fullMenu.each(function(menuItem){
 				var view = new MenuItemView({ model: menuItem });
 				this.$el.append(view.render().el);
-				//this.list.append(view.render().el);
-
 			}, this);	// "this" is the context in the callback
 		},
 
 		render: function(){
 			return this;
-
 		}
-
+		
 	});
 
-	new MenuView();
+	new FullMenuView();
+	
+	
+	// ================== ROUTER ===========================================
+	var MenuRouter = Backbone.Router.extend({
+		menuSelected: $('#menu_selected'),
+		routes: {
+	        '*actions': 'globalRoute'
+	    },
+	    
+	    initialize: function(){
+	    	this.on('route:globalRoute', function(action) {
+	    		this.refreshMenu(action);
+	    		this.doRoute(action);
+	    	});
+	    },
+	    
+	    refreshMenu: function(action){
+	    	fullMenu.each(function(menuItem){
+				menuItem.set({'selected': action == menuItem.get('link')});
+			}
+			, this);
+	    },
+	    
+	    doRoute: function(action){
+	    	alert(action);
+	    }
+	    
+	    	    
+	});
+	
+	// Initiate the router
+	new MenuRouter();
+	
+	// =======================================================================
+
+	// Start Backbone history a necessary step for bookmarkable URL's
+	Backbone.history.start();
 	
 	
 });

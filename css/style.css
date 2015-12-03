@@ -217,3 +217,18 @@ footer h2 i{
 	float: left;
 	margin-top: 11px;
 }
+
+
+#menu a {
+	display: block;
+	text-decoration: none;
+}
+
+#menu a:hover {
+	background-color: #DDDDDD;
+}
+
+#menu a.selected {
+	font-weight: bold;
+}
+
