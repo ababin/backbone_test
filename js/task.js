@@ -1,118 +1,71 @@
-$(function(){
+// ========= TASKS =======================================================
 
-	// TASK model
-	var Task = Backbone.Model.extend({
-		
-		defaults:{
-			title: 'Some task',
-			description : 'Task description',
-			timeBegin: 11223344,
-			timeEnd: 223344
-		}
-		
-	});
+// Task 
+var Task = Backbone.Model.extend({
 
+	defaults : {
+		id : 0,
+		title : 'Some task',
+		desc : 'Task description',
+	}
 
-	// TASKLIST collection
-	var TaskList = Backbone.Collection.extend({
-		// Will hold objects of the Task model
-		//model: Task
+});
+
+var TaskView = Backbone.View.extend({
 	
-	});
+	model: Task,
 	
+	tagName: 'p',
+					
+	initialize: function(){
+	},
 	
-	// Prefill the collection with a number of services.
-	var tasks = new TaskList([
-		new Task({ title: 'task1', description: 'task1 description'}),
-		new Task({ title: 'task2', description: 'task2 description'}),
-		new Task({ title: 'task3', description: 'task3 description'}),
-		new Task({ title: 'task4', description: 'task4 description'}),
-		new Task({ title: 'task5', description: 'task5 description'})
-	]);
+	render: function(){
+		this.$el.html(this.model.get('title') + ' ----' + this.model.get('desc') + ' (ID=' + this.model.get('id') + ')');
+		return this;
+	},
+									
+});
 
-	
-	// This view turns a Service model into HTML
-	var TaskView = Backbone.View.extend({
-		tagName: 'p',
+
+
+
+// TASKLIST collection
+var TaskList = Backbone.Collection.extend({
+	model: Task,
+	url: '/store/tasks.json',
 		
-		elCurrent: $('#div_current'),
+	initalize: function(){
+		this.model.bind('change', this.render, this);
+	},
 		
-		events:{
-			'click': 'clickTask',
-			'mouseover': 'mouseOverTask',
-			'mouseout': 'mouseOutTask'
-		},
-
-		initialize: function(){
-		},
-
-		render: function(){
-
-			// Create the HTML
-
-			this.$el.html(this.model.get('title') + " - " + this.model.get('description'));
-			
-			//alert(this.$el);
-			//alert(this.el);
-			
-			
-			// Returning the object is a good practice
-			// that makes chaining possible
-			return this;
-		},
-
-		clickTask: function(){
-			//alert(this.model.get('title'));
-		},
-		
-		mouseOverTask: function(){
-			this.elCurrent.html(this.model.get('title'));
-		},
-		
-		mouseOutTask: function(){
-			this.elCurrent.html('');
-		}
-		
-	});
-	
-
-	// The main view of the application
-	var AppTask = Backbone.View.extend({
-
-		// Base the view on an existing element
-		el: $('#tasks'),
-
-		initialize: function(){
-			
-			
-			//this.list = $('#div_1');
-			
-			// Listen for the change event on the collection.
-			// This is equivalent to listening on every one of the 
-			// service objects in the collection.
-			this.listenTo(tasks, 'change', this.render);
-
-			
-			// Create views for every one of the services in the
-			// collection and add them to the page
-
-			tasks.each(function(task){
-
-				var view = new TaskView({ model: task });
-				this.$el.append(view.render().el);
-				//this.list.append(view.render().el);
-
-			}, this);	// "this" is the context in the callback
-		},
-
-		render: function(){
-			return this;
-
-		}
-
-	});
-
-	new AppTask();
-	
 	
 });
+var tasks = new TaskList();
+
+//task List view
+var TasksView = Backbone.View.extend({
+
+	el: '#tasks',
+		
+	initialize: function(){},
+
+	render: function(){
+		this.$el.html('');
+		tasks.each(function(task){
+			var view = new TaskView({ model: task });
+			this.$el.append(view.render().el);
+			
+		}, this);
+		
+		return this;
+	}
+	
+});
+
+var tasksView;
+
+
+
+
+
