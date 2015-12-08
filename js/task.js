@@ -1,52 +1,44 @@
-// ========= TASKS =======================================================
+// TASK ================================================================================================================
 
-// Task 
 var Task = Backbone.Model.extend({
-
-	defaults : {
-		id : 0,
-		title : 'Some task',
-		desc : 'Task description',
+	
+	url: '/store/task',
+	
+	defaults: {
+		id: 0,
+		title: '',
+		desc: ''
 	}
-
+	
 });
 
 var TaskView = Backbone.View.extend({
 	
-	model: Task,
-	
 	tagName: 'p',
 					
-	initialize: function(){
-	},
-	
 	render: function(){
 		this.$el.html(this.model.get('title') + ' ----' + this.model.get('desc') + ' (ID=' + this.model.get('id') + ')');
 		return this;
 	},
 									
 });
+//=============================================================================================================
 
 
-
-
-// TASKLIST collection
-var TaskList = Backbone.Collection.extend({
-	model: Task,
-	url: '/store/tasks.json',
+// TASKLIST collection ====================================================================================================
+var Tasks = Backbone.Collection.extend({
+	url: '/store/tasks',
 		
 	initalize: function(){
 		this.model.bind('change', this.render, this);
-	},
-		
-	
+	}
 });
-var tasks = new TaskList();
+var tasks = new Tasks();
 
 //task List view
 var TasksView = Backbone.View.extend({
 
-	el: '#tasks',
+	el: '#right_content',
 		
 	initialize: function(){},
 
@@ -59,12 +51,16 @@ var TasksView = Backbone.View.extend({
 		}, this);
 		
 		return this;
-	}
+	},
+	
+	onReset: function(){
+		this.render();
+	},
 	
 });
 
 var tasksView;
-
+//=============================================================================================================
 
 
 

@@ -1,14 +1,16 @@
 var GlobalRouter = Backbone.Router.extend({
-	
+			
 	routes: {
 		'm1': 'menu_m1',
 		'm2': 'menu_m2',
 		'm3': 'menu_m3',
 		'm4': 'menu_m4',
 		'm5': 'menu_m5',
-		'm6': 'menu_m6',
-		'm7': 'menu_m7',
+		'newTask': 'newTaskRoute',
+		'loadTasks': 'loadTasksRoute',
+		'createNewTask': 'createNewTaskRoute',
 		'*actions': 'globalRoute',
+		
     },
     	    	    
     globalRoute: function(action){
@@ -16,43 +18,59 @@ var GlobalRouter = Backbone.Router.extend({
     },
     	    	    
     menu_m1: function(){
-    	this.refreshMenu('m1');
+    	leftMenuView.refreshMenu('m1');
     },
     
     menu_m2: function(action){
-    	this.refreshMenu('m2');
+    	leftMenuView.refreshMenu('m2');
     },
     
     menu_m3: function(action){
-    	this.refreshMenu('m3');
+    	leftMenuView.refreshMenu('m3');
     },
     
     menu_m4: function(action){
-    	this.refreshMenu('m4');
+    	leftMenuView.refreshMenu('m4');
     },
     
     menu_m5: function(action){
-    	this.refreshMenu('m5');
+    	leftMenuView.refreshMenu('m5');
     },
     
-    menu_m6: function(action){
-    	this.refreshMenu('m6');
-    },
-    
-    menu_m7: function(action){
-    	this.refreshMenu('m7');
-    	    	
-    	tasks.fetch();
-    	tasksView.render();
+    newTaskRoute: function(action){
+    	//leftMenuView.refreshMenu('newTask');
+    	//var template = _.template($('#tasks-template').html(), {tasks: tasks.models});
+    	//$("#right_content").html(template);
+    	
+    	leftMenuView.refreshMenu('newTask');
+    	var task = new Task();
+    	var tpl = _.template($('#task-template').html(), {task: task});
+    	$("#right_content").html(tpl);
+    	
+    	
+    	
     	
     },
     
-    
-    refreshMenu: function(action){
-    	leftMenu.each(function(menuItem){
-			menuItem.set({'selected': action == menuItem.get('link')});
-		}
-		, this);
+    loadTasksRoute: function(action){
+    	tasks.fetch({
+    		success: function(context){
+    			leftMenuView.refreshMenu('loadTasks');
+    			if(!tasksView)tasksView=new TasksView();
+    			tasksView.render();
+    		},
+    		error: function(er, er2){
+    			alert('error');
+    		}
+    	});
     },
+    
+    createNewTaskRoute: function(){
+    	var newTask = new Task({title: $('#taskTitle').val(), desc: $('#taskDesc').val()});
+    	newTask.save();
+    }
+    
+    
+    
     	    
 });

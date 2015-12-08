@@ -1,16 +1,16 @@
 $(function(){
 	
-	// создаем левое меню
-	new LeftMenuView();
+	// отключаем кэширование запросов
+	$.ajaxSetup({ cache: false });
 	
-	tasksView = new TasksView();
+	// создаем левое меню
+	leftMenuView = new LeftMenuView();
 	
 	// создаем роутер	
 	new GlobalRouter();
-		
+	
 	// Start Backbone history a necessary step for bookmarkable URL's
 	Backbone.history.start();
-	
 	
 	
 });
