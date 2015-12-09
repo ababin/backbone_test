@@ -8,7 +8,6 @@ var GlobalRouter = Backbone.Router.extend({
 		'm5': 'menu_m5',
 		'newTask': 'newTaskRoute',
 		'loadTasks': 'loadTasksRoute',
-		'createNewTask': 'createNewTaskRoute',
 		'*actions': 'globalRoute',
 		
     },
@@ -38,10 +37,7 @@ var GlobalRouter = Backbone.Router.extend({
     },
     
     newTaskRoute: function(action){
-    	//leftMenuView.refreshMenu('newTask');
-    	//var template = _.template($('#tasks-template').html(), {tasks: tasks.models});
-    	//$("#right_content").html(template);
-    	
+    	    	
     	leftMenuView.refreshMenu('newTask');
     	var task = new Task();
     	var tpl = _.template($('#task-template').html(), {task: task});
@@ -54,23 +50,20 @@ var GlobalRouter = Backbone.Router.extend({
     
     loadTasksRoute: function(action){
     	tasks.fetch({
+    		
     		success: function(context){
     			leftMenuView.refreshMenu('loadTasks');
-    			if(!tasksView)tasksView=new TasksView();
-    			tasksView.render();
+    			
+    			gridManager.showTasksGrid();
+    			
+    			
+    			//if(!tasksView)tasksView=new TasksView();
+    			//tasksView.render();
     		},
     		error: function(er, er2){
     			alert('error');
     		}
     	});
     },
-    
-    createNewTaskRoute: function(){
-    	var newTask = new Task({title: $('#taskTitle').val(), desc: $('#taskDesc').val()});
-    	newTask.save();
-    }
-    
-    
-    
     	    
 });

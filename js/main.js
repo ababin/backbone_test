@@ -13,4 +13,44 @@ $(function(){
 	Backbone.history.start();
 	
 	
+	
+	
+	
+	
 });
+
+var db = {
+		
+	createNewTask: function(){
+		var newTask = new Task({title: $('#taskTitle').val(), desc: $('#taskDesc').val()});
+    	newTask.save({},{
+    		success: function(model, result, xhr){
+    			alert('success');
+    		},
+    		
+    		error: function(model, result, xhr){
+    			alert('error');
+    		},
+    	});
+	}	
+		
+}; 
+
+var gridManager = {
+	showTasksGrid: function(){
+		new bbGrid.View({        
+		    caption: 'Test grid !',
+			container: $('#right_content'),        
+		    collection: tasks,
+		    colModel: [{ title: 'ID', name: 'id', sorttype: 'number'  },
+		               { title: 'Title', name: 'title' },
+		               { title: 'Desc', name: 'desc' } ],
+		    enableSearch: true,
+		    rows : 10
+		});
+	}
+};
+
+
+
+

@@ -35,7 +35,9 @@ var Tasks = Backbone.Collection.extend({
 });
 var tasks = new Tasks();
 
+
 //task List view
+/*
 var TasksView = Backbone.View.extend({
 
 	el: '#right_content',
@@ -60,6 +62,7 @@ var TasksView = Backbone.View.extend({
 });
 
 var tasksView;
+*/
 //=============================================================================================================
 
 

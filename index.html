@@ -10,6 +10,7 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" />
+<link href="lib/bbgrid/bbGrid.css" rel="stylesheet" />
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -20,14 +21,10 @@
 
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/bootstrap-3.3.6.min.js"></script>
-
-
 <script src="lib/underscore-1.4.4.min.js"></script>
 <script src="lib/backbone-1.0.0.min.js"></script>
+<script src="lib/bbgrid/bbGrid.js"></script>
 
-<!--  
-<script src="js/task.js"></script>
--->
   
 <script src="js/main.js"></script>
 <script src="js/menu.js"></script>
@@ -53,6 +50,9 @@
 			<div class="col-sm-9">
 				<div id="right_title"></div>
 				<div id="right_content"></div>
+				
+				<div id="bbGrid-container"></div>
+				
 			</div>
 		</div>
 
@@ -110,7 +110,7 @@
       </tr>
 	  <tr class="btn_panel">
 		<td colspan="2">
-			<a href="#createNewTask" class="btn btn-success">Create</a>
+			<a href="javascript:db.createNewTask()" class="btn btn-success">Create</a>
 		</td>
       </tr>
   </tbody>
