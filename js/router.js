@@ -22,6 +22,7 @@ var GlobalRouter = Backbone.Router.extend({
     
     menu_m2: function(action){
     	leftMenuView.refreshMenu('m2');
+    	cuteGrid.show();
     },
     
     menu_m3: function(action){

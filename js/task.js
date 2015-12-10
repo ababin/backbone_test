@@ -22,48 +22,43 @@ var TaskView = Backbone.View.extend({
 	},
 									
 });
-//=============================================================================================================
 
-
-// TASKLIST collection ====================================================================================================
+//TASKLIST collection ====================================================================================================
 var Tasks = Backbone.Collection.extend({
 	url: '/store/tasks',
 		
-	initalize: function(){
+	initialize: function(){
 		this.model.bind('change', this.render, this);
 	}
 });
 var tasks = new Tasks();
 
-
-//task List view
-/*
-var TasksView = Backbone.View.extend({
-
-	el: '#right_content',
-		
-	initialize: function(){},
-
-	render: function(){
-		this.$el.html('');
-		tasks.each(function(task){
-			var view = new TaskView({ model: task });
-			this.$el.append(view.render().el);
-			
-		}, this);
-		
-		return this;
-	},
-	
-	onReset: function(){
-		this.render();
-	},
-	
-});
-
-var tasksView;
-*/
 //=============================================================================================================
+
+
+PagedTasks = Backbone.Collection.extend({
+	url: '/store/pagedTasks',
+	
+	pageMeta: {
+		pageSize: 5,
+		page:1,
+		total:0
+	},
+	
+	initialize: function(){
+		this.model.bind('change', this.render, this);
+	},
+
+	parse: function(content){
+		var pageParams = content.pageMeta;
+		this.pageMeta.page = pageParams.page;
+		this.pageMeta.total=pageParams.total;
+		return content.data;
+	}
+
+});
+var pagedTasks = new PagedTasks();
+
 
 
 
