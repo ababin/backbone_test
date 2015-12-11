@@ -1,26 +1,89 @@
-table.cuteGrid {
+table.cuteGrid{
+	margin-top: 10px;
+	margin-bottom: 10px;
 	border: 1px solid #ddd;
+	border-collapse: separate;
+	border-radius: 6px;
+	font-size: 12px;
 }
 
-table.cuteGrid tr.cuteGridCaption th{
-	background-color: #eee;
-	font-size: 16px;
+
+table.cuteGrid tr td, 
+table.cuteGrid tr.header th{
+    padding: 3px;
 }
 
-table.cuteGrid tr td{
-	padding: 3px;	
+table.cuteGrid tr td.index{
+    font-size: 10px;
 }
 
-table.cuteGrid tr.cuteGridFooter td{
-    font-size: 12px;
-    color: #888;
+table.cuteGrid tr.header th{
+    font-size: 14px;
+}
+
+table.cuteGrid tr.caption th{
+    font-size: 16px;
+}
+
+table.cuteGrid tr.caption th a{
+    display: inline-block;
+    float: right;
+}
+
+table.cuteGrid tr.caption th a:hover{
+    text-decoration: none;
+}
+
+table.cuteGrid tr.data:hover {
+    cursor: pointer;
+}
+
+table.cuteGrid tr.caption th{
+	border: none;
+	border-radius: 6px;
+	background-color: #f4f4f4; 
+}
+
+table.cuteGrid tr td.index{
     font-style: italic;
+    color: #808080;
+    vertical-align: middle;
+    width: 50px;
 }
 
-table.cuteGrid tr.cuteGridFooter:hover {
+table.cuteGrid tr.empty td{
+    color: white;   
+}
+
+table.cuteGrid tr.header:hover, 
+table.cuteGrid tr.footer:hover  {
     background-color: white;
 }
 
-table.cuteGrid tr.cuteGridPagination td{
-	text-align: center;
+table.cuteGrid tr.header th{
+	border-bottom: 1px solid #ddd;
 }
+
+/* FOOTER ----------------------------------------- */
+table.cuteGrid tr.footer td{
+    color: #888;
+    text-align: center;
+}
+
+table.cuteGrid tr.footer td span{
+    margin-top: 10px;
+    font-style: italic;
+    float:left;
+}
+
+table.cuteGrid tr td ul{
+	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+table.cuteGrid tr td ul input[type=text]{
+    width: 40px;
+    text-align: center;
+}
+/* ------------------------------------------------------- */

@@ -6,7 +6,8 @@ $(function(){
 	// создаем левое меню
 	leftMenuView = new LeftMenuView();
 	
-	cuteGrid = new CuteGrid({component:'cuteGrid',container: '#right_content', collection: pagedTasks, caption: 'Table caption'});
+	// GRID -
+	cuteGrid = gridManager.createGrid();
 	
 	// создаем роутер	
 	new GlobalRouter();
@@ -39,22 +40,16 @@ var db = {
 }; 
 
 var gridManager = {
-	showTasksGrid: function(){
-		new bbGrid.View({        
-		    caption: 'Test grid !',
-			container: $('#right_content'),        
-		    collection: tasks,
-		    colModel: [{ title: 'ID', name: 'id', sorttype: 'number'  },
-		               { title: 'Title', name: 'title' },
-		               { title: 'Desc', name: 'desc' } ],
-		    enableSearch: true,
-		    rows : 10
-		});
+	createGrid: function(){
+		return new CuteGrid({
+			component:'cuteGrid',
+			container: '#right_content', 
+			collection: pagedTasks, 
+			caption: 'Table caption',
+			needShowRowIndex: true,
+			fixHeight: true});
 	}
 };
-
-//создаем cuteGrid
-var cuteGrid; 
 
 
 
