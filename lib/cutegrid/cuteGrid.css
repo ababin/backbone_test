@@ -64,6 +64,23 @@ table.cuteGrid tr.header th{
 	border-bottom: 1px solid #ddd;
 }
 
+/* HEADER ----------------------------------------- */
+table.cuteGrid tr.header th a{
+    margin-left: 10px;
+}
+
+table.cuteGrid tr.header th a.notused{
+	font-size: 10px;
+}
+
+table.cuteGrid tr.header th a:hover,
+table.cuteGrid tr.header th a:visited,
+table.cuteGrid tr.header th a:active{
+    text-decoration: none;
+}
+
+
+
 /* FOOTER ----------------------------------------- */
 table.cuteGrid tr.footer td{
     color: #888;

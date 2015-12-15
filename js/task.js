@@ -45,6 +45,9 @@ PagedTasks = Backbone.Collection.extend({
 		total:0
 	},
 	
+	orderMeta: {
+	},
+	
 	initialize: function(){
 		this.model.bind('change', this.render, this);
 	},
@@ -53,6 +56,7 @@ PagedTasks = Backbone.Collection.extend({
 		var pageParams = content.pageMeta;
 		this.pageMeta.page = pageParams.page;
 		this.pageMeta.total=pageParams.total;
+		this.orderMeta = content.orderMeta;
 		return content.data;
 	}
 

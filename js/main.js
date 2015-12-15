@@ -47,7 +47,13 @@ var gridManager = {
 			collection: pagedTasks, 
 			caption: 'Table caption',
 			needShowRowIndex: true,
-			fixHeight: true});
+			fixHeight: true,
+			columns:[
+		                {title: 'ID', modelAttr:'id', width: '50px' },
+		                {title: 'TITLE', modelAttr:'title', width: '100px', orderEnabled: true},
+		                {title: 'DESC', modelAttr:'desc', orderEnabled: true}
+		            ]
+		});
 	}
 };
 
