@@ -43,7 +43,11 @@ input[type="text"] {
 	font-weight: bold;
 }
 
-
+#loading-indicator {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 
  
 
