@@ -8,16 +8,49 @@ var Task = Backbone.Model.extend({
 		id: 0,
 		title: '',
 		desc: ''
-	}
-	
+	},
+			
 });
 
-var TaskView = Backbone.View.extend({
+var ReadTaskView = Backbone.View.extend({
 	
-	tagName: 'p',
+	tagName: 'div',
 					
 	render: function(){
-		this.$el.html(this.model.get('title') + ' ----' + this.model.get('desc') + ' (ID=' + this.model.get('id') + ')');
+		var html = '';
+		for(var i = 0; i< dict.task.fields.length; i++){
+			html += '<div class="row">';
+			html += '<div class="fieldName">' + dict.task.fields[i].title + '</div> <div class="fieldData">' + this.model.get(dict.task.fields[i].name) + '</div>';
+			html += '</div>';
+		}
+		
+		this.$el.html(html);
+		return this;
+	},
+									
+});
+
+var UpdateTaskView = Backbone.View.extend({
+	
+	tagName: 'div',
+					
+	render: function(){
+		var html = '';
+		for(var i = 0; i< dict.task.fields.length; i++){
+			html += '<div class="row">';
+			html += '<div class="fieldName">' + dict.task.fields[i].title + '</div>'; 
+			switch(dict.task.fields[i].type){
+			case 'id'		:		html += '<div class="fieldData">' + this.model.get(dict.task.fields[i].name) + '</div>'; break;
+			case 'string'	:		html += '<div class="fieldData"><input type="text" value="' + this.model.get(dict.task.fields[i].name) + '"></input></div>'; break;
+			case 'text'		:		html += '<div class="fieldData"><textarea>'+ this.model.get(dict.task.fields[i].name) + '</textarea></div>'; break;
+			}
+			
+			
+			'<div class="fieldData">' + this.model.get(dict.task.fields[i].name) + '</div>';
+			html += '</div>';
+		}
+		
+		this.$el.html(html);
 		return this;
 	},
 									
@@ -62,6 +95,7 @@ PagedTasks = Backbone.Collection.extend({
 
 });
 var pagedTasks = new PagedTasks();
+
 
 
 

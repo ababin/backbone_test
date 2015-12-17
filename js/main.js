@@ -68,25 +68,68 @@ var gridManager = {
 
 DialogManager = function(){
 	
-	// mode can be follows: R - read , M-modify,  
+	this.totalMode = 'CRUD';
+	this.curMode;
+	this.grid;
+	this.model;
 	
-	DialogManager.prototype.showDialogFor = function(grid, recId){
-		model = grid.collection.at(recId);
-		setHeader('Window header for ' + grid.component);
-		setContent('hello !!!');
+	// mode can be follows: CRUD  
+	
+	DialogManager.prototype.showDialogFor = function(_grid, _recId, _totalMode){
+		this.totalMode = _totalMode;
+		this.grid = _grid;
+		this.model = _grid.collection.at(_recId);
+		
+		if(lib.mode.canRead(this.totalMode)){
+			this.curMode = 'R';
+		}else{
+			alert('Can not READ !!! Permisions denied');
+			return;
+		}
+		prepareHeader('Window header for ' + this.grid.component, this.totalMode, this.curMode);
+		var readTaskView = new ReadTaskView({model : this.model});
+		setContent(readTaskView.render().el);
 		showModalWindow();
 	};
-	
-	DialogManager.prototype.showDialogForRead = function(grid, recId){
-		model = grid.collection.at(recId);
-		setHeader('Window header for ' + grid.component);
-		setContent('hello !!!');
+			
+	DialogManager.prototype.toUpdateMode = function(){
+		if(!lib.mode.canUpdate(this.totalMode)){
+			alert('Permission denied !');
+			return;
+		}
+		this.curMode = 'U';
+		
+		prepareHeader('Window header for ' + this.grid.component, this.totalMode, this.curMode);
+		var updateTaskView = new UpdateTaskView({model : this.model});
+		setContent(updateTaskView.render().el);
 		showModalWindow();
+		
 	};
 	
-	setHeader = function(data){
-		var header =  $('#modalWindow div.modal-dialog div.modal-content div.modal-header h4.modal-title');
-		header.html(data);
+	getTopButtonsHtml = function(_totalMode, _curMode){
+		var html = '';
+		
+		html += '<button type="button" class="close" data-dismiss="modal">X</button>';
+		
+		// editing
+		if(lib.mode.canUpdate(_totalMode)){
+			if(_curMode == 'U'){
+				html += '<div class="panel"><a href="javascript:dialogManager.toUpdateMode()" class="activated glyphicon glyphicon-pencil"></a></div>';
+			}else{
+				html += '<div class="panel"><a href="javascript:dialogManager.toUpdateMode()" class="glyphicon glyphicon-pencil"></a></div>';
+			}
+		}
+								
+		return html;
+	};
+	
+	prepareHeader = function(_title, _globalMode, _curMode){
+		var html = getTopButtonsHtml(_globalMode, _curMode);
+        html += '<h4 class="modal-title">' + _title + '</h4>';
+		
+		// glyphicon glyphicon-pencil
+		var header =  $('#modalWindow div.modal-dialog div.modal-content div.modal-header');
+		header.html(html);
 	};
 	
 	setContent = function(data){
@@ -97,9 +140,34 @@ DialogManager = function(){
 	showModalWindow = function(){
 		$('#modalWindow').modal();
 	};
+		
 	
 };
 var dialogManager = new DialogManager();
 
 
 
+var lib = {};
+
+lib.mode = {
+	canRead: function(_mode){
+		if(!_mode){
+			return false;
+		}
+		return _mode.indexOf('R') >= 0;
+	},	
+	
+	canWrite: function(_mode){
+		if(!_mode){
+			return false;
+		}
+		return _mode.indexOf('W') >= 0;
+	},
+	
+	canUpdate: function(_mode){
+		if(!_mode){
+			return false;
+		}
+		return _mode.indexOf('U') >= 0;
+	},
+};
