@@ -25,12 +25,21 @@ table.cuteGrid tr.caption th{
     font-size: 16px;
 }
 
-table.cuteGrid tr.caption th a{
+table.cuteGrid tr.caption th div.panel{
     display: inline-block;
     float: right;
+    background-color: inherit;
+    border: 0px;
+    margin: 0px 0px;
+    box-shadow: none;
 }
 
-table.cuteGrid tr.caption th a:hover{
+table.cuteGrid tr.caption a{
+    margin: 0px 5px 0px 5px;
+    font-weight: bold;
+}
+
+table.cuteGrid tr.caption a:hover{
     text-decoration: none;
 }
 
@@ -46,8 +55,9 @@ table.cuteGrid tr.caption th{
 
 table.cuteGrid tr td.index{
     font-style: italic;
-    color: #808080;
-    vertical-align: middle;
+    color: #aaa;
+    vertical-align: top;
+    padding-top: 4px;
     width: 50px;
 }
 
@@ -83,6 +93,7 @@ table.cuteGrid tr.header th a:active{
 
 /* FOOTER ----------------------------------------- */
 table.cuteGrid tr.footer td{
+    border-top: 2px solid #ddd;
     color: #888;
     text-align: center;
 }

@@ -91,6 +91,23 @@ DialogManager = function(){
 		setContent(readTaskView.render().el);
 		showModalWindow();
 	};
+	
+	DialogManager.prototype.showCreateDialog = function(_grid, _totalMode){
+		this.totalMode = _totalMode;
+		this.grid = _grid;
+		this.model = _grid.collection.at(_recId);
+		
+		if(lib.mode.canRead(this.totalMode)){
+			this.curMode = 'R';
+		}else{
+			alert('Can not READ !!! Permisions denied');
+			return;
+		}
+		prepareHeader('Window header for ' + this.grid.component, this.totalMode, this.curMode);
+		var readTaskView = new ReadTaskView({model : this.model});
+		setContent(readTaskView.render().el);
+		showModalWindow();
+	};
 			
 	DialogManager.prototype.toUpdateMode = function(){
 		if(!lib.mode.canUpdate(this.totalMode)){
