@@ -52,15 +52,11 @@ var gridManager = {
 		return new CuteGrid({
 			component:'cuteGrid',
 			container: '#right_content', 
-			collection: pagedTasks, 
+			collection: pagedTasks,
+			itemClass: 'Task',
 			caption: 'Table caption',
 			needShowRowIndex: true,
 			fixHeight: true,
-			columns:[
-		                {title: 'ID', modelAttr:'id', width: '50px' },
-		                {title: 'TITLE', modelAttr:'title', width: '100px', orderEnabled: true},
-		                {title: 'DESC', modelAttr:'desc', orderEnabled: true}
-		            ]
 		});
 	}
 };
@@ -95,7 +91,7 @@ DialogManager = function(){
 	DialogManager.prototype.showCreateDialog = function(_grid, _totalMode){
 		this.totalMode = _totalMode;
 		this.grid = _grid;
-		this.model = _grid.collection.at(_recId);
+		this.model =  _grid.collection.at(_recId);
 		
 		if(lib.mode.canRead(this.totalMode)){
 			this.curMode = 'R';
