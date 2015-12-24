@@ -87,12 +87,11 @@ DialogManager = function(){
 		var html = '';
 		for(var i =0; i < Admin.model[_grid.itemClass].viewCard.length; i++){
 			var field = Admin.model[_grid.itemClass].viewCard[i].field;
-			var typedObject = Admin.types.Factory.createType(this.bbModel.get(field), _grid.itemClass , field); 
+			var typedObject = Admin.types.Factory.createType(this.bbModel, _grid.itemClass , field); 
 			html += typedObject.renderForCard(this.curMode); 
 		}
-		var t = new Task();
-		alert(t.cid);
 		setContent(html);
+		prepareButtons(_mode);
 		showModalWindow();
 	};
 	
@@ -156,6 +155,20 @@ DialogManager = function(){
 	setContent = function(data){
 		var content =  $('#modalWindow div.modal-dialog div.modal-content div.modal-body');
 		content.html(data);
+	};
+	
+	prepareButtons = function(_mode){
+		var container = $('#modalWindow div.modal-dialog div.modal-content div.modal-footer');
+		var html = '';
+		if(_mode == 'R'){
+			//html = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+		}else if(_mode == 'C'){
+			html = '<button type="button" class="btn btn-success" data-dismiss="modal">Save</button>';
+			//html += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+		}
+		
+		
+		container.html(html);
 	};
 	
 	showModalWindow = function(){
