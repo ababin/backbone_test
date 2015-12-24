@@ -1,7 +1,7 @@
 // TASK ================================================================================================================
 
 var Task = Backbone.Model.extend({
-	
+			
 	url: '/store/task',
 	
 	defaults: {
@@ -11,6 +11,7 @@ var Task = Backbone.Model.extend({
 	},
 			
 });
+
 
 var ReadTaskView = Backbone.View.extend({
 	
