@@ -21,6 +21,8 @@ $(function(){
 	// GRID -
 	cuteGrid = gridManager.createGrid();
 	
+	projectsGrid = gridManager.createProjectsGrid();
+	
 	// создаем роутер	
 	new GlobalRouter();
 	
@@ -55,6 +57,16 @@ var gridManager = {
 			collection: pagedTasks,
 			itemClass: 'Task',
 			caption: 'Table caption',
+			needShowRowIndex: true,
+			fixHeight: true});
+	},
+	
+	createProjectsGrid: function(){
+		return new CuteGrid({
+			component:'projectsGrid',
+			container: '#right_content', 
+			collection: pagedProjects, 
+			caption: 'Projects !!!',
 			needShowRowIndex: true,
 			fixHeight: true,
 		});

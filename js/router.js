@@ -5,7 +5,7 @@ var GlobalRouter = Backbone.Router.extend({
 		'm2': 'menu_m2',
 		'm3': 'menu_m3',
 		'm4': 'menu_m4',
-		'm5': 'menu_m5',
+		'projects': 'menu_projects',
 		'newTask': 'newTaskRoute',
 		'loadTasks': 'loadTasksRoute',
 		'*actions': 'globalRoute',
@@ -33,8 +33,10 @@ var GlobalRouter = Backbone.Router.extend({
     	leftMenuView.refreshMenu('m4');
     },
     
-    menu_m5: function(action){
-    	leftMenuView.refreshMenu('m5');
+    menu_projects: function(action){
+    	leftMenuView.refreshMenu('projects');
+    	projectsGrid.show();
+    	
     },
     
     newTaskRoute: function(action){
