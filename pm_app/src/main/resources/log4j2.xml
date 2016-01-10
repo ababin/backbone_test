@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%c]- %m%n"/>
+        </Console>
+
+        <!-- This file appender is used to output aggregated performance statistics -->
+        <RollingFile name="perf4jAppender" fileName="perf4j-timings.log"
+                     filePattern="perf4j-timings-%d{yyyy-MM-dd}-%i.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %-5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- This file appender is used to output aggregated performance statistics -->
+        <RollingFile name="console_file" fileName="console.log"
+                     filePattern="console-%d{yyyy-MM-dd}-%i.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %-5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="AUTORU_LOADER_APPENDER" fileName="autoru-loader.log" filePattern="autoru-loader.%d{yyyy-MM-dd}-%i.log" append="false">
+            <PatternLayout>
+                <Pattern>%d %-5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.perf4j.TimingLogger" additivity="false" level="INFO">
+            <AppenderRef ref="perf4jAppender"/>
+        </Logger>
+        
+        <Logger name="org.springframework" additivity="false" level="WARN">
+            <AppenderRef ref="console"/>
+        </Logger>
+        
+        <Logger name="httpclient.wire" additivity="false" level="WARN">
+            <AppenderRef ref="console"/>
+        </Logger>
+        
+        <Logger name="org.apache" additivity="false" level="ERROR">
+            <AppenderRef ref="console"/>
+        </Logger>
+        
+        <Logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" additivity="false" level="FATAL">
+            <AppenderRef ref="console"/>
+        </Logger>
+        
+        
+        
+        
+        
+        <Logger name="autoru.loader" additivity="false" level="DEBUG">
+            <AppenderRef ref="AUTORU_LOADER_APPENDER"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+        
+        
+        <Root level="DEBUG">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="console_file"/>
+        </Root>
+    </Loggers>
+</Configuration>

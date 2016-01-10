@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="bigint.type" value="NUMBER(19,0)" dbms="oracle" />
+    <property name="bigint.type" value="BIGINT" dbms="postgresql" />
+    <property name="bigint.type" value="BIGINT" dbms="h2" />
+    <property name="bigint.type" value="NUMERIC(19)" dbms="mssql" />
+
+    <property name="boolean.type" value="NUMBER(1, 0)" dbms="oracle" />
+    <property name="boolean.type" value="BOOLEAN" dbms="postgresql" />
+    <property name="boolean.type" value="BOOLEAN" dbms="h2" />
+    <property name="boolean.type" value="NUMERIC(1)" dbms="mssql" />
+
+    <property name="int.type" value="NUMBER(10,0)" dbms="oracle" />
+    <property name="int.type" value="INT" dbms="postgresql" />
+    <property name="int.type" value="INT" dbms="h2" />
+    <property name="int.type" value="NUMERIC(10)" dbms="mssql" />
+
+    <property name="blob.type" value="BLOB" dbms="oracle" />
+    <property name="blob.type" value="BLOB" dbms="h2" />
+    <property name="blob.type" value="OID" dbms="postgresql" />
+    <property name="blob.type" value="VARBINARY(MAX)" dbms="mssql" />
+
+    <property name="clob.type" value="CLOB" dbms="oracle" />
+    <property name="clob.type" value="CLOB" dbms="h2" />
+    <property name="clob.type" value="text" dbms="postgresql" />
+    <property name="clob.type" value="VARCHAR(MAX)" dbms="mssql" />
+
+    <property name="timestamp.type" value="TIMESTAMP(6)" dbms="oracle" />
+    <property name="timestamp.type" value="TIMESTAMP" dbms="postgresql" />
+    <property name="timestamp.type" value="TIMESTAMP" dbms="h2" />
+    <property name="timestamp.type" value="DATETIME" dbms="mssql" />
+
+    <property name="varchar255.type" value="VARCHAR(255)" dbms="oracle" />
+	<property name="varchar255.type" value="varchar(255)" dbms="postgresql" />
+	<property name="varchar255.type" value="varchar(255)" dbms="h2" />
+    <property name="varchar255.type" value="VARCHAR(255)" dbms="mssql" />
+	<property name="varchar2_255.type" value="VARCHAR2(255)" dbms="oracle" />
+	
+	<property name="varchar3800.type" value="VARCHAR2(3800)" dbms="oracle" />
+	<property name="varchar3800.type" value="varchar(3800)" dbms="postgresql" />
+	<property name="varchar3800.type" value="varchar(3800)" dbms="h2" />
+    <property name="varchar3800.type" value="VARCHAR(3800)" dbms="mssql" />
+	
+	<property name="varchar.type" value="VARCHAR2" dbms="oracle" />
+	<property name="varchar.type" value="VARCHAR" dbms="postgresql" />
+	<property name="varchar.type" value="VARCHAR" dbms="h2" />
+	<property name="varchar.type" value="VARCHAR" dbms="mssql" />
+
+    <include file="changelog.xml" relativeToChangelogFile="true" />
+    
+    <changeSet id="pm" author="a.babin" runAlways="true" runOnChange="true" >
+        <tagDatabase tag="1.0" />
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,21 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    
+    <changeSet id="2016-01-04-create-table-project" author="a.babin" context="common" >
+        <sqlFile path="scripts/create_project_2016_01_04.sql" dbms="postgresql" encoding="UTF-8" relativeToChangelogFile="true" splitStatements="false"/>
+    </changeSet>
+	
+	<changeSet id="2016-01-04-create-table-author" author="a.babin" context="common" >
+        <sqlFile path="scripts/create_author_2016_01_04.sql" dbms="postgresql" encoding="UTF-8" relativeToChangelogFile="true" splitStatements="false"/>
+    </changeSet>
+	
+	<changeSet id="2016-01-04-create-table-task" author="a.babin" context="common" >
+        <sqlFile path="scripts/create_task_2016_01_04.sql" dbms="postgresql" encoding="UTF-8" relativeToChangelogFile="true" splitStatements="false"/>
+    </changeSet>
+	
+
+</databaseChangeLog>
+

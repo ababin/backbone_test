@@ -65,7 +65,8 @@ var gridManager = {
 		return new CuteGrid({
 			component:'projectsGrid',
 			container: '#right_content', 
-			collection: pagedProjects, 
+			collection: pagedProjects,
+			itemClass: 'Project',
 			caption: 'Projects !!!',
 			needShowRowIndex: true,
 			fixHeight: true,
@@ -80,19 +81,32 @@ DialogManager = function(){
 	this.curMode;
 	this.grid;
 	this.bbModel;
+	this.originalBbModel;
+	this.typedObjects;
 	
 	// mode can be follows: CRUD  
 	
 	DialogManager.prototype.showCard = function(_grid, _recId, _totalMode, _mode){
-		this.grid = _grid;
-		this.totalMode = _totalMode;
-		this.curMode = _mode; 
-		this.bbModel = _mode == 'C' ? new Task() : _grid.collection.at(_recId);  
-				
+		// check permissions
 		if(!lib.mode.havePermissions(_mode, _totalMode)){
 			alert('!!! Permisions denied for ' + lib.mode.getOperationName(_mode));
 			return;
 		}
+		
+		this.grid = _grid;
+		this.totalMode = _totalMode;
+		this.curMode = _mode; 
+		if(_mode == 'C'){
+			this.bbModel = new window[_grid.itemClass]();
+		}else if (_mode == 'U'){
+			this.originalBbModel = this.bbModel.clone(); 
+		}else{
+			this.bbModel = _grid.collection.at(_recId);
+		}
+		 
+		this.typedObjects = new Array();
+				
+		
 		
 		prepareHeader('Window header for ' + this.grid.component, this.totalMode, this.curMode);
 		
@@ -100,6 +114,7 @@ DialogManager = function(){
 		for(var i =0; i < Admin.model[_grid.itemClass].viewCard.length; i++){
 			var field = Admin.model[_grid.itemClass].viewCard[i].field;
 			var typedObject = Admin.types.Factory.createType(this.bbModel, _grid.itemClass , field); 
+			this.typedObjects.push(typedObject);
 			html += typedObject.renderForCard(this.curMode); 
 		}
 		setContent(html);
@@ -125,17 +140,8 @@ DialogManager = function(){
 	};
 			
 	DialogManager.prototype.toUpdateMode = function(){
-		if(!lib.mode.canUpdate(this.totalMode)){
-			alert('Permission denied !');
-			return;
-		}
 		this.curMode = 'U';
-		
-		prepareHeader('Window header for ' + this.grid.component, this.totalMode, this.curMode);
-		var updateTaskView = new UpdateTaskView({model : this.model});
-		setContent(updateTaskView.render().el);
-		showModalWindow();
-		
+		this.showCard(this.grid, -1, this.totalMode, this.curMode);
 	};
 	
 	getTopButtonsHtml = function(_totalMode, _curMode){
@@ -175,7 +181,7 @@ DialogManager = function(){
 		if(_mode == 'R'){
 			//html = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
 		}else if(_mode == 'C'){
-			html = '<button type="button" class="btn btn-success" data-dismiss="modal">Save</button>';
+			html = '<button type="button" class="btn btn-success" onclick="dialogManager.save()">Save</button>';
 			//html += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
 		}
 		
@@ -185,6 +191,43 @@ DialogManager = function(){
 	
 	showModalWindow = function(){
 		$('#modalWindow').modal({backdrop: 'static'});
+	};
+	
+	DialogManager.prototype.closeModalWindow = function(){
+		$('#modalWindow').modal('hide');
+	};
+	
+	DialogManager.prototype.save = function(){
+		var bbModel = this.bbModel;
+		this.typedObjects.forEach(function(element, index){
+			// obtain value
+			element.obtainValueFromHtml();
+			
+			// validate
+			//element.validate();
+			
+			// set values
+			bbModel.set(element.fieldName , element.internalObj);
+			
+		});
+		
+		var dm = this;
+		var grid = this.grid;
+		this.bbModel.save({},{
+    		success: function(model, result, xhr){
+    			//alert('success');
+    			dm.closeModalWindow();
+    			grid.refresh();
+    			
+    		},
+    		
+    		error: function(model, result, xhr){
+    			alert('error');
+    		},
+    	});
+		
+		//closeModalWindow();
+		
 	};
 		
 	

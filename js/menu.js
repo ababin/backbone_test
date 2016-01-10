@@ -35,7 +35,7 @@ var leftMenu = new LeftMenu([
 	new LeftMenuItem({ linkTitle: 'Menu item 2', link: 'm2' , title: 'menu item 2222222'}),
 	new LeftMenuItem({ linkTitle: 'Menu item 3', link: 'm3' , title: 'menu item 3333333333'}),
 	new LeftMenuItem({ linkTitle: 'Menu item 4', link: 'm4' , title: 'menu item 4444444444'}),
-	new LeftMenuItem({ linkTitle: 'Menu item 5', link: 'projects' , title: 'Projects'}),
+	new LeftMenuItem({ linkTitle: 'Projects', link: 'projects' , title: 'Projects'}),
 	new LeftMenuItem({ linkTitle: 'New Task', link: 'newTask' , title: 'New task !!!'}),
 	new LeftMenuItem({ linkTitle: 'Load tasks',  link: 'loadTasks' , title: 'TASKS'})
 ]);
